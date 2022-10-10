@@ -1,0 +1,68 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:treeCollections="clr-namespace:AvaloniaTreeTabWindowManager.Utils.TreeCollections"
+        xmlns:viewModels="clr-namespace:AvaloniaTreeTabWindowManager.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
+        x:Class="AvaloniaTreeTabWindowManager.Views.TabWindow"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaTitleBarHeightHint="30"
+        ExtendClientAreaChromeHints="Default"
+        Name="Wnd"
+        WindowStartupLocation="CenterScreen">
+    <Design.DataContext>
+        <viewModels:TabWindowViewModel/>
+    </Design.DataContext>
+    <Window.Styles>
+        <Style Selector="Window">
+            <Interaction.Behaviors>
+                <DataTriggerBehavior Binding="{Binding #Wnd.WindowState}" Value="Maximized">
+                    <ChangePropertyAction TargetObject="Wnd" PropertyName="Padding">
+                        <ChangePropertyAction.Value>
+                            <Thickness>8,8,8,8</Thickness>
+                        </ChangePropertyAction.Value>
+                    </ChangePropertyAction>
+                    <ChangePropertyAction TargetObject="Grd" PropertyName="Margin">
+                        <ChangePropertyAction.Value>
+                            <Thickness>0,29,0,0</Thickness>
+                        </ChangePropertyAction.Value>
+                    </ChangePropertyAction>
+                    <ChangePropertyAction TargetObject="Wnd" PropertyName="ExtendClientAreaTitleBarHeightHint" Value="38"/>
+                </DataTriggerBehavior>
+                <DataTriggerBehavior Binding="{Binding #Wnd.WindowState}" Value="Maximized" ComparisonCondition="NotEqual">
+                    <ChangePropertyAction TargetObject="Wnd" PropertyName="Padding">
+                        <ChangePropertyAction.Value>
+                            <Thickness>0</Thickness>
+                        </ChangePropertyAction.Value>
+                    </ChangePropertyAction>
+                    <ChangePropertyAction TargetObject="Grd" PropertyName="Margin">
+                        <ChangePropertyAction.Value>
+                            <Thickness>0,30,0,0</Thickness>
+                        </ChangePropertyAction.Value>
+                    </ChangePropertyAction>
+                    <ChangePropertyAction TargetObject="Wnd" PropertyName="ExtendClientAreaTitleBarHeightHint" Value="30"/>
+                </DataTriggerBehavior>
+            </Interaction.Behaviors>
+        </Style>
+    </Window.Styles>
+    <Grid Name="Grd" RowDefinitions="30,*" Background="Red">
+        <!--<Grid Grid.Row="0" ColumnDefinitions="*, 100">
+            <ItemsControl Grid.Column="0">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type treeCollections:ViewNode}">
+                        <Grid>
+                            <Button Content="{Binding ViewModel.Title}" Classes="TabButton"></Button>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>-->
+        <ContentControl Grid.Row="1" Content="{Binding Content}"/>
+    </Grid>
+</Window>
