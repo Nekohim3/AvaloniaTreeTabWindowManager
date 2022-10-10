@@ -4,8 +4,9 @@ using System.Linq;
 using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
-using AvaloniaTreeTabWindowManager.Utils.Collections;
 using AvaloniaTreeTabWindowManager.ViewModels;
+using AvaloniaUtils.Utils.Collections;
+using AvaloniaUtils.Utils.Trees;
 using ReactiveUI;
 
 namespace AvaloniaTreeTabWindowManager.Utils.TreeCollections

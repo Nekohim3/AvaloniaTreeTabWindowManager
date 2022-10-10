@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AvaloniaTreeTabWindowManager.Utils.Collections;
 using AvaloniaTreeTabWindowManager.ViewModels;
 using System.Collections.ObjectModel;
+using AvaloniaUtils.Utils.Collections;
+using AvaloniaUtils.Utils.Trees;
 
 namespace AvaloniaTreeTabWindowManager.Utils.TreeCollections
 {

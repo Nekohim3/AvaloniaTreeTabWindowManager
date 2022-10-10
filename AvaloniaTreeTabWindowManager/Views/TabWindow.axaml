@@ -11,58 +11,81 @@
         ExtendClientAreaChromeHints="Default"
         Name="Wnd"
         WindowStartupLocation="CenterScreen">
-    <Design.DataContext>
-        <viewModels:TabWindowViewModel/>
-    </Design.DataContext>
-    <Window.Styles>
-        <Style Selector="Window">
-            <Interaction.Behaviors>
-                <DataTriggerBehavior Binding="{Binding #Wnd.WindowState}" Value="Maximized">
-                    <ChangePropertyAction TargetObject="Wnd" PropertyName="Padding">
-                        <ChangePropertyAction.Value>
-                            <Thickness>8,8,8,8</Thickness>
-                        </ChangePropertyAction.Value>
-                    </ChangePropertyAction>
-                    <ChangePropertyAction TargetObject="Grd" PropertyName="Margin">
-                        <ChangePropertyAction.Value>
-                            <Thickness>0,29,0,0</Thickness>
-                        </ChangePropertyAction.Value>
-                    </ChangePropertyAction>
+	<Design.DataContext>
+		<viewModels:TabWindowViewModel/>
+	</Design.DataContext>
+	<Window.Styles>
+		<Style Selector="Window">
+			<Interaction.Behaviors>
+				<DataTriggerBehavior Binding="{Binding #Wnd.WindowState}" Value="Maximized">
                     <ChangePropertyAction TargetObject="Wnd" PropertyName="ExtendClientAreaTitleBarHeightHint" Value="38"/>
-                </DataTriggerBehavior>
-                <DataTriggerBehavior Binding="{Binding #Wnd.WindowState}" Value="Maximized" ComparisonCondition="NotEqual">
-                    <ChangePropertyAction TargetObject="Wnd" PropertyName="Padding">
-                        <ChangePropertyAction.Value>
-                            <Thickness>0</Thickness>
-                        </ChangePropertyAction.Value>
-                    </ChangePropertyAction>
-                    <ChangePropertyAction TargetObject="Grd" PropertyName="Margin">
-                        <ChangePropertyAction.Value>
-                            <Thickness>0,30,0,0</Thickness>
-                        </ChangePropertyAction.Value>
-                    </ChangePropertyAction>
+					<ChangePropertyAction TargetObject="Wnd" PropertyName="Padding">
+						<ChangePropertyAction.Value>
+							<Thickness>8,8,8,8</Thickness>
+						</ChangePropertyAction.Value>
+					</ChangePropertyAction>
+					<ChangePropertyAction TargetObject="AroundBorder" PropertyName="BorderThickness">
+						<ChangePropertyAction.Value>
+							<Thickness>0</Thickness>
+						</ChangePropertyAction.Value>
+					</ChangePropertyAction>
+				</DataTriggerBehavior>
+				<DataTriggerBehavior Binding="{Binding #Wnd.WindowState}" Value="Maximized" ComparisonCondition="NotEqual">
                     <ChangePropertyAction TargetObject="Wnd" PropertyName="ExtendClientAreaTitleBarHeightHint" Value="30"/>
-                </DataTriggerBehavior>
-            </Interaction.Behaviors>
-        </Style>
-    </Window.Styles>
-    <Grid Name="Grd" RowDefinitions="30,*" Background="Red">
-        <!--<Grid Grid.Row="0" ColumnDefinitions="*, 100">
-            <ItemsControl Grid.Column="0">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type treeCollections:ViewNode}">
-                        <Grid>
-                            <Button Content="{Binding ViewModel.Title}" Classes="TabButton"></Button>
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </Grid>-->
-        <ContentControl Grid.Row="1" Content="{Binding Content}"/>
-    </Grid>
+					<ChangePropertyAction TargetObject="Wnd" PropertyName="Padding">
+						<ChangePropertyAction.Value>
+							<Thickness>0</Thickness>
+						</ChangePropertyAction.Value>
+					</ChangePropertyAction>
+					<ChangePropertyAction TargetObject="AroundBorder" PropertyName="BorderThickness">
+						<ChangePropertyAction.Value>
+							<Thickness>1</Thickness>
+						</ChangePropertyAction.Value>
+					</ChangePropertyAction>
+				</DataTriggerBehavior>
+			</Interaction.Behaviors>
+		</Style>
+	</Window.Styles>
+    <Border x:Name="AroundBorder" BorderThickness="1" BorderBrush="Red">
+		<Grid RowDefinitions="Auto,1,*">
+			<!-- НЕ КРАСИТЬ! -->
+			<Grid Grid.Row="0" Height="29" ColumnDefinitions="200, 200, *, 150">
+				<!-- НЕ КРАСИТЬ! -->
+				<Grid Grid.Column="0"  IsHitTestVisible="True">
+					<!-- Кнопка меню -->
+					<!-- Идея: добавить возможность кликнуть пкм. Открывается (на всех окнах или только на одном) затемнение на все окно и рисуется дерево открытых окон -->
+					<!-- В теории тут можно вывести название программы, и возможно иконку, но тут перемещать не получится -->
+				</Grid>
+				<Grid Grid.Column="1"  IsHitTestVisible="True">
+					<!--<ItemsControl Grid.Column="0">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<StackPanel Orientation="Horizontal"/>
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate DataType="{x:Type treeCollections:ViewNode}">
+							<Grid>
+								<Button Content="{Binding ViewModel.Title}" Classes="TabButton"></Button>
+							</Grid>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>-->
+				</Grid>
+				<Grid Grid.Column="2"  IsHitTestVisible="False">
+					<Grid HorizontalAlignment="Right" Margin="10,0,10,0" Background="#ff444444">
+						<TextBlock Text="MARINOS" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+					</Grid>
+					<!-- В теории тут можно вывести название программы, и возможно иконку, и можно будет перемещать -->
+				</Grid>
+				<Grid Grid.Column="3"  IsHitTestVisible="False">
+					<!-- НЕ ТРОГАТЬ! НЕ КРАСИТЬ! Тут кнопки окна (3 шт) и немного места остается для перемещения окна -->
+				</Grid>
+			</Grid>
+			<!-- линия, разделяет TitleBar от контента -->
+			<Grid Grid.Row="1" Background="Red" IsHitTestVisible="False"/>
+			<!-- Контент вкладки -->
+			<ContentControl Grid.Row="2" Content="{Binding Content}" IsHitTestVisible="True"/>
+		</Grid>
+	</Border>
 </Window>

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AvaloniaTreeTabWindowManager.Utils.TabControl;
 using AvaloniaTreeTabWindowManager.Utils.TreeCollections;
+using AvaloniaUtils.Utils.ViewModels;
 
 namespace AvaloniaTreeTabWindowManager.ViewModels
 {

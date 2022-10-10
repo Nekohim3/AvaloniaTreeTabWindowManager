@@ -17,4 +17,12 @@
     <PackageReference Include="XamlNameReferenceGenerator" Version="1.3.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Utils\Collections\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\AvaloniaUtils\AvaloniaUtils\AvaloniaUtils.csproj" />
+  </ItemGroup>
+
 </Project>
