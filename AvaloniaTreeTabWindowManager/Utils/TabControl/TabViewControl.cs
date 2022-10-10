@@ -9,22 +9,16 @@ using ReactiveUI;
 
 namespace AvaloniaTreeTabWindowManager.Utils.TabControl
 {
-    public  class TabViewControl : ViewModelBase
+    public static class TabViewControl
     {
-        private TreeViewModelCollection<TabWindowViewModel, ViewNode> _tree;
+        public static TreeViewModelCollection<TabWindowViewModel, ViewNode> Tree { get; set; }
 
-        public TreeViewModelCollection<TabWindowViewModel, ViewNode> Tree
+        public static void Init(TabWindowViewModel vm, ViewNode root)
         {
-            get => _tree;
-            set => this.RaiseAndSetIfChanged(ref _tree, value);
+            Tree = new TreeViewModelCollection<TabWindowViewModel, ViewNode>(vm, root);
         }
 
-        public TabViewControl(TabWindowViewModel vm, ViewNode root)
-        {
-            _tree = new TreeViewModelCollection<TabWindowViewModel, ViewNode>(vm, root);
-        }
-
-        private ViewNode? GetNodeByViewModel(TabViewModelBase? vm)
+        private static ViewNode? GetNodeByViewModel(TabViewModelBase? vm)
         {
             return vm == null ? null : Tree.ItemsCollection.FirstOrDefault(x => x.ViewModel == vm);
         }
@@ -48,14 +42,14 @@ namespace AvaloniaTreeTabWindowManager.Utils.TabControl
         //    return false;
         //}
 
-        public bool AddAndSwitchView<T>(TabViewModelBase? parent, Func<T> child) where T : TabViewModelBase
+        public static bool AddAndSwitchView<T>(TabViewModelBase? parent, Func<T> child) where T : TabViewModelBase
         {
             var type = typeof(T);
             var inst = Tree.ItemsCollection.FirstOrDefault(x => x.ViewModel.GetType().Name == type.Name);
             return inst == null ? SwitchView(AddView(parent, child)) : SwitchView(inst);
         }
 
-        public T AddView<T>(TabViewModelBase? parent, Func<T> child) where T : TabViewModelBase
+        public static T AddView<T>(TabViewModelBase? parent, Func<T> child) where T : TabViewModelBase
         {
             var parentNode = GetNodeByViewModel(parent);
             var ch         = child.Invoke();
@@ -63,12 +57,12 @@ namespace AvaloniaTreeTabWindowManager.Utils.TabControl
             return ch;
         }
 
-        public void RemoveView()
+        public static void RemoveView()
         {
 
         }
 
-        public bool SwitchView(ViewNode? node)
+        public static bool SwitchView(ViewNode? node)
         {
             if (node == null) return false;
             var mvm = Tree.GetVmByItem(node);
@@ -82,6 +76,6 @@ namespace AvaloniaTreeTabWindowManager.Utils.TabControl
             return true;
         }
 
-        public bool SwitchView(TabViewModelBase vm) => SwitchView(GetNodeByViewModel(vm));
+        public static bool SwitchView(TabViewModelBase vm) => SwitchView(GetNodeByViewModel(vm));
     }
 }
