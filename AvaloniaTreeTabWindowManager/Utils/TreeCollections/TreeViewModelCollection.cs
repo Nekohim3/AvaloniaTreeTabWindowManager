@@ -11,11 +11,11 @@ using AvaloniaUtils.Utils.Trees;
 
 namespace AvaloniaTreeTabWindowManager.Utils.TreeCollections
 {
-    public class TreeViewModelCollection<TVm, T> : ReactiveObject where T : ITreeNode<T>, ISelected where TVm : TabWindowViewModel
+    internal class TreeViewModelCollection<TVm, T> : ReactiveObject where T : ITreeNode<T>, ISelected where TVm : TabWindowViewModel
     {
         private T _root;
 
-        public T Root
+        internal T Root
         {
             get => _root;
             set => this.RaiseAndSetIfChanged(ref _root, value);
@@ -23,7 +23,7 @@ namespace AvaloniaTreeTabWindowManager.Utils.TreeCollections
 
         private ObservableCollection<T> _itemsCollection = new();
 
-        public ObservableCollection<T> ItemsCollection
+        internal ObservableCollection<T> ItemsCollection
         {
             get => _itemsCollection;
             set => this.RaiseAndSetIfChanged(ref _itemsCollection, value);
@@ -32,27 +32,27 @@ namespace AvaloniaTreeTabWindowManager.Utils.TreeCollections
 
         private Dictionary<TVm, T> _headList = new();
 
-        public Dictionary<TVm, T> HeadList
+        internal Dictionary<TVm, T> HeadList
         {
             get => _headList;
             set => this.RaiseAndSetIfChanged(ref _headList, value);
         }
 
-        public TreeViewModelCollection(TVm vm, T root)
+        internal TreeViewModelCollection(TVm vm, T root)
         {
             _root = root;
             ItemsCollection.Add(_root);
             HeadList.Add(vm, _root);
         }
 
-        public TVm GetVmByItem(T item)
+        internal TVm GetVmByItem(T item)
         {
             while (item.Parent != null && !HeadList.ContainsValue(item))
                 item = item.Parent;
             return HeadList.First(x => x.Value.Equals(item)).Key;
         }
 
-        public List<T> GetAllChildNodesByVmRoot(TVm vm)
+        internal List<T> GetAllChildNodesByVmRoot(TVm vm)
         {
             var item = HeadList[vm];
             return GetAllChildNodesByVmRoot(vm, item);
@@ -70,7 +70,7 @@ namespace AvaloniaTreeTabWindowManager.Utils.TreeCollections
             return items;
         }
 
-        public List<T> GetAllChildNodes(T item, List<T>? items = null)
+        internal List<T> GetAllChildNodes(T item, List<T>? items = null)
         {
             items ??= new List<T>();
 
@@ -80,7 +80,7 @@ namespace AvaloniaTreeTabWindowManager.Utils.TreeCollections
             return items;
         }
 
-        public bool AddChild(T? parent, T? child)
+        internal bool AddChild(T? parent, T? child)
         {
             if (parent == null || child == null) return false;
             parent.AddChild(child);
@@ -88,18 +88,18 @@ namespace AvaloniaTreeTabWindowManager.Utils.TreeCollections
             return true;
         }
 
-        public void RemoveChild(T parent, T child)
+        internal void RemoveChild(T parent, T child)
         {
             ItemsCollection.Remove(child);
             parent.RemoveChild(child);
         }
 
-        public bool AddHead(TVm key, T value)
+        internal bool AddHead(TVm key, T value)
         {
             return HeadList.TryAdd(key, value);
         }
 
-        public void RemoveHead(TVm key)
+        internal void RemoveHead(TVm key)
         {
             HeadList.Remove(key);
         }
