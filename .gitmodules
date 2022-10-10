@@ -1,0 +1,4 @@
+[submodule "AvaloniaUtils"]
+	path = AvaloniaUtils
+	url = https://github.com/Nekohim3/AvaloniaUtils
+	branch = master
