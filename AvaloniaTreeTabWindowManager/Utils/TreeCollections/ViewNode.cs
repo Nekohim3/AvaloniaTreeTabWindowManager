@@ -13,6 +13,14 @@ namespace AvaloniaTreeTabWindowManager.Utils.TreeCollections
 {
     public class ViewNode : TabViewModelBase, ITreeNode<ViewNode>, ISelected
     {
+        private ulong _viewCounter;
+
+        public ulong ViewCounter
+        {
+            get => _viewCounter;
+            set => this.RaiseAndSetIfChanged(ref _viewCounter, value);
+        }
+
         private TabViewModelBase _viewModel;
 
         public TabViewModelBase ViewModel
@@ -20,6 +28,9 @@ namespace AvaloniaTreeTabWindowManager.Utils.TreeCollections
             get => _viewModel;
             set => this.RaiseAndSetIfChanged(ref _viewModel, value);
         }
+
+        public bool IsRoot => Parent == null;
+
         private bool _isSelected;
 
         public bool IsSelected

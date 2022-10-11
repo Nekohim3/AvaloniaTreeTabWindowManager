@@ -11,7 +11,7 @@ using AvaloniaUtils.Utils.Trees;
 
 namespace AvaloniaTreeTabWindowManager.Utils.TreeCollections
 {
-    internal class TreeViewModelCollection<TVm, T> : ReactiveObject where T : ITreeNode<T>, ISelected where TVm : TabWindowViewModel
+    internal class TreeViewModelCollection<TVm, T> : ReactiveObject where T : class, ITreeNode<T>, ISelected where TVm : TabWindowViewModel
     {
         private T _root;
 

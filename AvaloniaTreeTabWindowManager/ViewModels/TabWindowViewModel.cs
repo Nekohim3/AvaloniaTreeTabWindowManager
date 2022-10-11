@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AvaloniaTreeTabWindowManager.Utils.TreeCollections;
 using AvaloniaTreeTabWindowManager.Views;
+using AvaloniaUtils.Utils.Collections;
 using ReactiveUI;
 
 namespace AvaloniaTreeTabWindowManager.ViewModels
@@ -16,6 +18,14 @@ namespace AvaloniaTreeTabWindowManager.ViewModels
         {
             get => _content;
             set => this.RaiseAndSetIfChanged(ref _content, value);
+        }
+
+        private ObservableCollectionWithSelectedItem<ViewNode> _tabList = new();
+
+        public ObservableCollectionWithSelectedItem<ViewNode> TabList
+        {
+            get => _tabList;
+            set => this.RaiseAndSetIfChanged(ref _tabList, value);
         }
 
         public TabWindow Wnd { get; set; }

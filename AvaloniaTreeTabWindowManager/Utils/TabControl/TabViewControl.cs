@@ -11,11 +11,14 @@ namespace AvaloniaTreeTabWindowManager.Utils.TabControl
 {
     public static class TabViewControl
     {
+        private     static    ulong                                                 _viewCounter;
         internal static TreeViewModelCollection<TabWindowViewModel, ViewNode> Tree { get; set; }
 
         public static void Init(TabWindowViewModel vm, ViewNode root)
         {
-            Tree = new TreeViewModelCollection<TabWindowViewModel, ViewNode>(vm, root);
+            _viewCounter     = 0;
+            Tree             = new TreeViewModelCollection<TabWindowViewModel, ViewNode>(vm, root);
+            root.ViewCounter = ++_viewCounter;
         }
 
         private static ViewNode? GetNodeByViewModel(TabViewModelBase? vm)
@@ -65,12 +68,13 @@ namespace AvaloniaTreeTabWindowManager.Utils.TabControl
         public static bool SwitchView(ViewNode? node)
         {
             if (node == null) return false;
+            node.ViewCounter = ++_viewCounter;
             var mvm = Tree.GetVmByItem(node);
             mvm.Content = node.ViewModel;
-            var vms = Tree.GetAllChildNodesByVmRoot(mvm);
-            foreach (var x in vms)
-                x.IsSelected = false;
-            node.IsSelected = true;
+            //var vms = Tree.GetAllChildNodesByVmRoot(mvm);
+            //foreach (var x in vms)
+            //    x.IsSelected = false;
+            //node.IsSelected = true;
             if (!mvm.Wnd.IsActive)
                 mvm.Wnd.Activate();
             return true;

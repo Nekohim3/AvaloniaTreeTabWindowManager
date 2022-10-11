@@ -14,38 +14,82 @@
 	<Design.DataContext>
 		<viewModels:TabWindowViewModel/>
 	</Design.DataContext>
-	<Window.Styles>
-		<Style Selector="Window">
-			<Interaction.Behaviors>
-				<DataTriggerBehavior Binding="{Binding #Wnd.WindowState}" Value="Maximized">
-                    <ChangePropertyAction TargetObject="Wnd" PropertyName="ExtendClientAreaTitleBarHeightHint" Value="38"/>
-					<ChangePropertyAction TargetObject="Wnd" PropertyName="Padding">
-						<ChangePropertyAction.Value>
-							<Thickness>8,8,8,8</Thickness>
-						</ChangePropertyAction.Value>
-					</ChangePropertyAction>
-					<ChangePropertyAction TargetObject="AroundBorder" PropertyName="BorderThickness">
-						<ChangePropertyAction.Value>
-							<Thickness>0</Thickness>
-						</ChangePropertyAction.Value>
-					</ChangePropertyAction>
-				</DataTriggerBehavior>
-				<DataTriggerBehavior Binding="{Binding #Wnd.WindowState}" Value="Maximized" ComparisonCondition="NotEqual">
-                    <ChangePropertyAction TargetObject="Wnd" PropertyName="ExtendClientAreaTitleBarHeightHint" Value="30"/>
-					<ChangePropertyAction TargetObject="Wnd" PropertyName="Padding">
-						<ChangePropertyAction.Value>
-							<Thickness>0</Thickness>
-						</ChangePropertyAction.Value>
-					</ChangePropertyAction>
-					<ChangePropertyAction TargetObject="AroundBorder" PropertyName="BorderThickness">
-						<ChangePropertyAction.Value>
-							<Thickness>1</Thickness>
-						</ChangePropertyAction.Value>
-					</ChangePropertyAction>
-				</DataTriggerBehavior>
-			</Interaction.Behaviors>
-		</Style>
-	</Window.Styles>
+  <Window.Styles>
+    <Style Selector="Window">
+      <Interaction.Behaviors>
+        <DataTriggerBehavior Binding="{Binding #Wnd.WindowState}" Value="Maximized">
+          <ChangePropertyAction TargetObject="Wnd" PropertyName="ExtendClientAreaTitleBarHeightHint" Value="38"/>
+          <ChangePropertyAction TargetObject="Wnd" PropertyName="Padding">
+            <ChangePropertyAction.Value>
+              <Thickness>8,8,8,8</Thickness>
+            </ChangePropertyAction.Value>
+          </ChangePropertyAction>
+          <ChangePropertyAction TargetObject="AroundBorder" PropertyName="BorderThickness">
+            <ChangePropertyAction.Value>
+              <Thickness>0</Thickness>
+            </ChangePropertyAction.Value>
+          </ChangePropertyAction>
+        </DataTriggerBehavior>
+        <DataTriggerBehavior Binding="{Binding #Wnd.WindowState}" Value="Maximized" ComparisonCondition="NotEqual">
+          <ChangePropertyAction TargetObject="Wnd" PropertyName="ExtendClientAreaTitleBarHeightHint" Value="30"/>
+          <ChangePropertyAction TargetObject="Wnd" PropertyName="Padding">
+            <ChangePropertyAction.Value>
+              <Thickness>0</Thickness>
+            </ChangePropertyAction.Value>
+          </ChangePropertyAction>
+          <ChangePropertyAction TargetObject="AroundBorder" PropertyName="BorderThickness">
+            <ChangePropertyAction.Value>
+              <Thickness>1</Thickness>
+            </ChangePropertyAction.Value>
+          </ChangePropertyAction>
+        </DataTriggerBehavior>
+      </Interaction.Behaviors>
+    </Style>
+    <!--<Style Selector="Button.TabButton">
+      <Setter Property="SnapsToDevicePixels" Value="true" />
+      <Setter Property="OverridesDefaultStyle" Value="true" />
+      <Setter Property="MinHeight" Value="25"/>
+      <Setter Property="Margin" Value="1,0,0,0"/>
+      --><!--<Setter Property="Background" Value="{StaticResource TabOutlineBrush}"/>
+      <Setter Property="BorderBrush" Value="{StaticResource TabOutlineBrush}"/>--><!--
+      <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Button">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+              <Grid.Styles>
+                <Style Selector="TextBlock">
+                  <Setter Property="TextWrapping" Value="NoWrap" />
+                  <Setter Property="VerticalAlignment" Value="Center" />
+                  <Setter Property="HorizontalAlignment" Value="Left" />
+                  <Setter Property="TextAlignment" Value="Center" />
+                  <Setter Property="Background" Value="Transparent"/>
+                </Style>
+              </Grid.Styles>
+                <Grid>
+                    --><!-- detach/attach --><!--
+                </Grid>
+              <TextBlock Grid.Column="1" Text="{TemplateBinding Content}"/>
+              <Button Grid.Column="2" x:Name="CloseTabButton">
+                <Button.Styles>
+                  <Style Selector="Button">
+                    <Interaction.Behaviors>
+                      <DataTriggerBehavior Binding="{Binding IsRoot}" Value="True">
+                        <ChangePropertyAction TargetObject="CloseTabButton" PropertyName="Visibility" Value="Collapsed"/>
+                      </DataTriggerBehavior>
+                      <DataTriggerBehavior Binding="{Binding IsRoot}" Value="False">
+                        <ChangePropertyAction TargetObject="CloseTabButton" PropertyName="Visibility" Value="Visible"/>
+                      </DataTriggerBehavior>
+                    </Interaction.Behaviors>
+                  </Style>
+                </Button.Styles>
+              </Button>
+            </Grid>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>-->
+  </Window.Styles>
     <Border x:Name="AroundBorder" BorderThickness="1" BorderBrush="Red">
 		<Grid RowDefinitions="Auto,1,*">
 			<!-- НЕ КРАСИТЬ! -->
@@ -57,7 +101,7 @@
 					<!-- В теории тут можно вывести название программы, и возможно иконку, но тут перемещать не получится -->
 				</Grid>
 				<Grid Grid.Column="1"  IsHitTestVisible="True">
-					<!--<ItemsControl Grid.Column="0">
+					<ItemsControl Grid.Column="0" Items="{Binding TabList}">
 					<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
 							<StackPanel Orientation="Horizontal"/>
@@ -70,7 +114,7 @@
 							</Grid>
 						</DataTemplate>
 					</ItemsControl.ItemTemplate>
-				</ItemsControl>-->
+				</ItemsControl>
 				</Grid>
 				<Grid Grid.Column="2"  IsHitTestVisible="False">
 					<Grid HorizontalAlignment="Right" Margin="10,0,10,0" Background="#ff444444">
