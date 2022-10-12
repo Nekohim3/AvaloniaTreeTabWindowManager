@@ -11,11 +11,11 @@ using AvaloniaUtils.Utils.Trees;
 
 namespace AvaloniaTreeTabWindowManager.Utils.TreeCollections
 {
-    internal class TreeViewModelCollection<TVm, T> : ReactiveObject where T : class, ITreeNode<T>, ISelected where TVm : TabWindowViewModel
+    public class TreeViewModelCollection<TVm, T> : ReactiveObject where T : class, ITreeNode<T>, ISelected where TVm : TabWindowViewModel
     {
         private T _root;
 
-        internal T Root
+        public T Root
         {
             get => _root;
             set => this.RaiseAndSetIfChanged(ref _root, value);
@@ -23,7 +23,7 @@ namespace AvaloniaTreeTabWindowManager.Utils.TreeCollections
 
         private ObservableCollection<T> _itemsCollection = new();
 
-        internal ObservableCollection<T> ItemsCollection
+        public ObservableCollection<T> ItemsCollection
         {
             get => _itemsCollection;
             set => this.RaiseAndSetIfChanged(ref _itemsCollection, value);
@@ -32,33 +32,33 @@ namespace AvaloniaTreeTabWindowManager.Utils.TreeCollections
 
         private Dictionary<TVm, T> _headList = new();
 
-        internal Dictionary<TVm, T> HeadList
+        public Dictionary<TVm, T> HeadList
         {
             get => _headList;
             set => this.RaiseAndSetIfChanged(ref _headList, value);
         }
 
-        internal TreeViewModelCollection(TVm vm, T root)
+        public TreeViewModelCollection(TVm vm, T root)
         {
             _root = root;
             ItemsCollection.Add(_root);
             HeadList.Add(vm, _root);
         }
 
-        internal TVm GetVmByItem(T item)
+        public TVm GetVmByItem(T item)
         {
             while (item.Parent != null && !HeadList.ContainsValue(item))
                 item = item.Parent;
             return HeadList.First(x => x.Value.Equals(item)).Key;
         }
 
-        internal List<T> GetAllChildNodesByVmRoot(TVm vm)
+        public List<T> GetAllChildNodesByVmRoot(TVm vm)
         {
             var item = HeadList[vm];
             return GetAllChildNodesByVmRoot(vm, item);
         }
 
-        private List<T> GetAllChildNodesByVmRoot(TVm vm, T item, List<T>? items = null)
+        public List<T> GetAllChildNodesByVmRoot(TVm vm, T item, List<T>? items = null)
         {
             items ??= new List<T>();
 
@@ -70,7 +70,7 @@ namespace AvaloniaTreeTabWindowManager.Utils.TreeCollections
             return items;
         }
 
-        internal List<T> GetAllChildNodes(T item, List<T>? items = null)
+        public List<T> GetAllChildNodes(T item, List<T>? items = null)
         {
             items ??= new List<T>();
 

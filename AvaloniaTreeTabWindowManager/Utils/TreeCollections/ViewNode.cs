@@ -30,6 +30,7 @@ namespace AvaloniaTreeTabWindowManager.Utils.TreeCollections
         }
 
         public bool IsRoot => Parent == null;
+        public int  Depth  => Parent == null ? 0 : Parent.Depth + 1;
 
         private bool _isSelected;
 

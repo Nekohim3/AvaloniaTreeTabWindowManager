@@ -12,7 +12,7 @@ namespace AvaloniaTreeTabWindowManager.Utils.TabControl
     public static class TabViewControl
     {
         private     static    ulong                                                 _viewCounter;
-        internal static TreeViewModelCollection<TabWindowViewModel, ViewNode> Tree { get; set; }
+        public static TreeViewModelCollection<TabWindowViewModel, ViewNode> Tree { get; set; }
 
         public static void Init(TabWindowViewModel vm, ViewNode root)
         {

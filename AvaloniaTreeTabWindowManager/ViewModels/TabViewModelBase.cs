@@ -9,9 +9,18 @@ using AvaloniaUtils.Utils.ViewModels;
 
 namespace AvaloniaTreeTabWindowManager.ViewModels
 {
-    public class TabViewModelBase : ViewModelBase
+    public enum Modules
     {
-        public virtual string Title { get; set; }
+        PMS,
+        ISM,
+        CREW,
+        MRV,
+        BDG,
+    }
+    public abstract class TabViewModelBase : ViewModelBase
+    {
+        public virtual string  Title  { get; set; }
+        public abstract Modules Module { get; set; }
         protected TabViewModelBase()
         {
             Title = GetType().Name;
