@@ -20,7 +20,7 @@ namespace AvaloniaTreeTabWindowManager.ViewModels
     public abstract class TabViewModelBase : ViewModelBase
     {
         public virtual string  Title  { get; set; }
-        public abstract Modules Module { get; set; }
+        //public abstract Modules Module { get; set; }
         protected TabViewModelBase()
         {
             Title = GetType().Name;

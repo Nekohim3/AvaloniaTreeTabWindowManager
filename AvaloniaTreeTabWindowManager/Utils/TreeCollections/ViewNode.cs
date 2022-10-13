@@ -13,13 +13,13 @@ namespace AvaloniaTreeTabWindowManager.Utils.TreeCollections
 {
     public class ViewNode : TabViewModelBase, ITreeNode<ViewNode>, ISelected
     {
-        private ulong _viewCounter;
+        //private ulong _viewCounter;
 
-        public ulong ViewCounter
-        {
-            get => _viewCounter;
-            set => this.RaiseAndSetIfChanged(ref _viewCounter, value);
-        }
+        //public ulong ViewCounter
+        //{
+        //    get => _viewCounter;
+        //    set => this.RaiseAndSetIfChanged(ref _viewCounter, value);
+        //}
 
         private TabViewModelBase _viewModel;
 

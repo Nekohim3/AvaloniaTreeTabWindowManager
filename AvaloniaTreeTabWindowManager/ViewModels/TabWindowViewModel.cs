@@ -13,8 +13,6 @@ namespace AvaloniaTreeTabWindowManager.ViewModels
 {
     public class TabWindowViewModel : TabViewModelBase
     {
-        public override Modules Module { get; set; }
-
         private TabViewModelBase _content;
 
         public TabViewModelBase Content
