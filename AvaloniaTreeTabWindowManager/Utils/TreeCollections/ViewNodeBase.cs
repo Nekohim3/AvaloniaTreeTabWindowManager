@@ -7,20 +7,13 @@ using System.Threading.Tasks;
 using AvaloniaTreeTabWindowManager.ViewModels;
 using AvaloniaUtils.Utils.Collections;
 using AvaloniaUtils.Utils.Trees;
+using AvaloniaUtils.Utils.ViewModels;
 using ReactiveUI;
 
 namespace AvaloniaTreeTabWindowManager.Utils.TreeCollections
 {
-    public class ViewNode : TabViewModelBase, ITreeNode<ViewNode>, ISelected
+    public class ViewNodeBase : ViewModelBase, ITreeNode<ViewNodeBase>, ISelected
     {
-        //private ulong _viewCounter;
-
-        //public ulong ViewCounter
-        //{
-        //    get => _viewCounter;
-        //    set => this.RaiseAndSetIfChanged(ref _viewCounter, value);
-        //}
-
         private TabViewModelBase _viewModel;
 
         public TabViewModelBase ViewModel
@@ -29,9 +22,6 @@ namespace AvaloniaTreeTabWindowManager.Utils.TreeCollections
             set => this.RaiseAndSetIfChanged(ref _viewModel, value);
         }
 
-        public bool IsRoot => Parent == null;
-        public int  Depth  => Parent == null ? 0 : Parent.Depth + 1;
-
         private bool _isSelected;
 
         public bool IsSelected
@@ -39,29 +29,31 @@ namespace AvaloniaTreeTabWindowManager.Utils.TreeCollections
             get => _isSelected;
             set => this.RaiseAndSetIfChanged(ref _isSelected, value);
         }
+        
+        private ViewNodeBase? _parent;
 
-
-        private ViewNode? _parent;
-
-        public ViewNode? Parent
+        public ViewNodeBase? Parent
         {
             get => _parent;
             set => this.RaiseAndSetIfChanged(ref _parent, value);
         }
 
-        private ObservableCollectionWithSelectedItem<ViewNode> _childs = new();
+        private ObservableCollectionWithSelectedItem<ViewNodeBase> _childs = new();
 
-        public ObservableCollectionWithSelectedItem<ViewNode> Childs
+        public ObservableCollectionWithSelectedItem<ViewNodeBase> Childs
         {
             get => _childs;
             set => this.RaiseAndSetIfChanged(ref _childs, value);
         }
 
+        public bool IsRoot => Parent == null;
+        public int  Depth  => Parent == null ? 0 : Parent.Depth + 1;
+
         public ReactiveCommand<Unit, Unit> SwitchCmd { get; }
-        public ReactiveCommand<Unit, Unit> CloseCmd  { get; }
+        public ReactiveCommand<Unit, Unit> CloseCmd  { get; } 
         public ReactiveCommand<Unit, Unit> EscapeCmd { get; }
 
-        public ViewNode(TabViewModelBase vm, ViewNode? parent = null)
+        public ViewNodeBase(TabViewModelBase vm, ViewNodeBase? parent = null)
         {
             _viewModel = vm;
             _parent    = parent;
@@ -72,29 +64,49 @@ namespace AvaloniaTreeTabWindowManager.Utils.TreeCollections
 
         public virtual void OnSwitch()
         {
-
+            throw new NotImplementedException();
         }
 
         public virtual void OnClose()
         {
-
+            throw new NotImplementedException();
         }
 
         public virtual void OnEscape()
         {
-
+            throw new NotImplementedException();
         }
         
-        public virtual void AddChild(ViewNode child)
+        public virtual void AddChild(ViewNodeBase child)
         {
             Childs.Add(child);
             child.Parent = this;
         }
 
-        public virtual void RemoveChild(ViewNode child)
+        public virtual void RemoveChild(ViewNodeBase child)
         {
             child.Parent = null;
             Childs.Remove(child);
+        }
+
+        public ViewNodeBase GetFirst(ViewNodeBase item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ViewNodeBase GetNext(ViewNodeBase  item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ViewNodeBase GetPrev(ViewNodeBase  item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ViewNodeBase GetLast(ViewNodeBase  item)
+        {
+            throw new NotImplementedException();
         }
     }
 }

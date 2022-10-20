@@ -30,21 +30,21 @@ namespace AvaloniaTreeTabWindowManager.Utils.TreeCollections
             set => this.RaiseAndSetIfChanged(ref _root, value);
         }
 
-        private ObservableCollection<T> _itemsCollection = new();
+        private ObservableCollectionWithSelectedItem<T> _itemsCollection = new();
 
-        public ObservableCollection<T> ItemsCollection
+        public ObservableCollectionWithSelectedItem<T> ItemsCollection
         {
             get => _itemsCollection;
             set => this.RaiseAndSetIfChanged(ref _itemsCollection, value);
         }
 
-        private Dictionary<TVm, ObservableCollectionWithSelectedItem<T>> _headList = new ();
+        //private Dictionary<TVm, ObservableCollectionWithSelectedItem<T>> _headList = new ();
 
-        public Dictionary<TVm, ObservableCollectionWithSelectedItem<T>> HeadList
-        {
-            get => _headList;
-            set => this.RaiseAndSetIfChanged(ref _headList, value);
-        }
+        //public Dictionary<TVm, ObservableCollectionWithSelectedItem<T>> HeadList
+        //{
+        //    get => _headList;
+        //    set => this.RaiseAndSetIfChanged(ref _headList, value);
+        //}
 
         public TreeViewModelCollection(TVm vm, T root)
         {
@@ -53,20 +53,20 @@ namespace AvaloniaTreeTabWindowManager.Utils.TreeCollections
             //HeadList.Add(vm, _root);
         }
 
-        public void CreateHead()
-        {
+        //public void CreateHead()
+        //{
 
-        }
+        //}
 
-        public void RemoveHead()
-        {
+        //public void RemoveHead()
+        //{
 
-        }
+        //}
 
-        public void MoveToHead()
-        {
+        //public void MoveToHead()
+        //{
 
-        }
+        //}
 
         //public TVm GetVmByItem(T item)
         //{

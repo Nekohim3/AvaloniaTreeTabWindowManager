@@ -16,7 +16,7 @@ namespace AvaloniaTreeTabWindowManager.Utils.TabControl
     {
         public TabViewControl()
         {
-            var q = new TreeViewModelCollection<TabWindowViewModel, TreeViewModelCollection<TabWindowViewModel, ViewNode>(null, null);
+            //var q = new TreeViewModelCollection<TabWindowViewModel, TreeViewModelCollection<TabWindowViewModel, ViewNode>(null, null);
         }
     }
     //public static class TabViewControl

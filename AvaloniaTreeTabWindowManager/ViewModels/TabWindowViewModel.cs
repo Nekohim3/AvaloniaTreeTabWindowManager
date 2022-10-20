@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using AvaloniaTreeTabWindowManager.Utils.TreeCollections;
 using AvaloniaTreeTabWindowManager.Views;
 using AvaloniaUtils.Utils.Collections;
+using AvaloniaUtils.Utils.ViewModels;
 using DynamicData.Binding;
 using ReactiveUI;
 
 namespace AvaloniaTreeTabWindowManager.ViewModels
 {
-    public class TabWindowViewModel : TabViewModelBase
+    public class TabWindowViewModel : ViewModelBase
     {
         private TabViewModelBase _content;
 
@@ -20,6 +21,7 @@ namespace AvaloniaTreeTabWindowManager.ViewModels
             get => _content;
             set => this.RaiseAndSetIfChanged(ref _content, value);
         }
+        
 
         //private ObservableCollectionWithSelectedItem<ViewNode> _tabList = new();
 
@@ -42,6 +44,5 @@ namespace AvaloniaTreeTabWindowManager.ViewModels
         //{
 
         //}
-
     }
 }
